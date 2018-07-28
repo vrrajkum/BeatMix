@@ -85,3 +85,51 @@ const invert = (arr) => {
       break;
   }
 };
+
+// Determine whether synth input is valid
+const invalidSynthInput = (x, y, size) => (
+  x < 0 || y < 0 || x >= size || y >= size
+);
+
+// Determine whether synth input is a corner and return corresponding neighbors
+const cornerSynthInput = (x, y, size) => {
+  if (x === 0 && y === 0) { // Bottom left corner
+    return [[x, y + 1], [x + 1, y]];
+  } else if (x === 0 && y === size - 1) { // Top left corner
+    return [[x, y - 1], [x + 1, y]];
+  } else if (x === size - 1 && y === 0) { // Bottom right corner
+    return [[x, y + 1], [x - 1, y]];
+  } else if (x === size - 1 && y === size - 1) { // Top right corner
+    return [[ x, y - 1], [x - 1, y]];
+  } else {
+    return false;
+  }
+};
+
+// Determine whether synth input is on an edge and return corresponding neighbors
+const edgeSynthInput = (x, y, size) => {
+  if (x === 0 && y > 0) { // Left edge
+    return [[x, y - 1], [x, y + 1], [x + 1, y]];
+  } else if (x > 0 && y === size - 1) { // Top edge
+    return [[x, y - 1], [x - 1, y], [x + 1, y]];
+  } else if (x === size - 1 && y > 0) { // Right edge
+    return [[x, y - 1], [x, y + 1], [x - 1, y]];
+  } else if (x > 0 && y === 0) { // Bottom edge
+    return [[x, y + 1], [x - 1, y], [x + 1, y]];
+  } else {
+    return false;
+  }
+};
+
+// Return neighboring synth pads when one is clicked
+const getNeighborPads = (x, y, size) => {
+  if (invalidSynthInput(x, y, size)) {
+    return [];
+  } else if (cornerSynthInput(x, y, size)) {
+    return cornerSynthInput(x, y, size);
+  } else if (edgeSynthInput(x, y, size)) {
+    return edgeSynthInput(x, y, size);
+  } else {
+    return [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]];
+  }
+};
