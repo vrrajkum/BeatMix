@@ -1,6 +1,6 @@
-// Create and populate an array with 16 'false' elements
-const createArr = () => {
-  arr = [];
+// Create and populate an array with 16 `false` elements
+const createArray = () => {
+  const arr = [];
   for (let i = 0; i < 16; i++) {
     arr.push(false);
   }
@@ -9,10 +9,10 @@ const createArr = () => {
 }
 
 // Initialize drum arrays
-let kicks = createArr();
-let snares = createArr();
-let hiHats = createArr();
-let rideCymbals = createArr();
+let kicks = createArray();
+let snares = createArray();
+let hiHats = createArray();
+let rideCymbals = createArray();
 
 // Toggle the drum at the given index in the given array
 const toggleDrum = (arr, index) => {
@@ -20,22 +20,15 @@ const toggleDrum = (arr, index) => {
     return;
   }
 
-  switch (arr) {
-    case 'kicks':
-      kicks[index] = !kicks[index];
-      break;
-    case 'snares':
-      snares[index] = !snares[index];
-      break;
-    case 'hiHats':
-      hiHats[index] = !hiHats[index];
-      break;
-    case 'rideCymbals':
-      rideCymbals[index] = !rideCymbals[index];
-      break;
-    default:
-      break;
-  }
+  const reassignDrum = {
+    'kicks': () => kicks[index] = !kicks[index],
+    'snares': () => snares[index] = !snares[index],
+    'hiHats': () => hiHats[index] = !hiHats[index],
+    'rideCymbals': () => rideCymbals[index] = !rideCymbals[index],
+    'default': () => console.log("Invalid drum array!")
+  };
+
+  reassignDrum[arr] ? reassignDrum[arr]() : reassignDrum['default']();
 };
 
 // Reset a given array
@@ -44,22 +37,15 @@ const clear = (arr) => {
     return;
   }
 
-  switch (arr) {
-    case 'kicks':
-      kicks = createArr();
-      break;
-    case 'snares':
-      snares = createArr();
-      break;
-    case 'hiHats':
-      hiHats = createArr();
-      break;
-    case 'rideCymbals':
-      rideCymbals = createArr();
-      break;
-    default:
-      break;
-  }
+  const clearArray = {
+    'kicks': () => kicks = createArray(),
+    'snares': () => snares = createArray(),
+    'hiHats': () => hiHats = createArray(),
+    'rideCymbals': () => rideCymbals = createArray(),
+    'default': () => console.log("Invalid drum array!")
+  };
+
+  clearArray[arr] ? clearArray[arr]() : clearArray['default']();
 };
 
 // Invert all the values in a given array
@@ -68,22 +54,15 @@ const invert = (arr) => {
     return;
   }
 
-  switch (arr) {
-    case 'kicks':
-      kicks = kicks.map(value => !value);
-      break;
-    case 'snares':
-      snares = snares.map(value => !value);
-      break;
-    case 'hiHats':
-      hiHats = hiHats.map(value => !value);
-      break;
-    case 'rideCymbals':
-      rideCymbals = rideCymbals.map(value => !value);
-      break;
-    default:
-      break;
-  }
+  const invertArray = {
+    'kicks': () => kicks = kicks.map(value => !value),
+    'snares': () => snares = snares.map(value => !value),
+    'hiHats': () => hiHats = hiHats.map(value => !value),
+    'rideCymbals': () => rideCymbals = rideCymbals.map(value => !value),
+    'default': () => console.log("Invalid drum array!")
+  };
+
+  invertArray[arr] ? invertArray[arr]() : invertArray['default']();
 };
 
 // Determine whether synth input is valid
@@ -91,7 +70,7 @@ const invalidSynthInput = (x, y, size) => (
   x < 0 || y < 0 || x >= size || y >= size
 );
 
-// Determine whether synth input is a corner and return corresponding neighbors
+// Determine whether synth input is a corner; if so, return the corresponding neighbors
 const cornerSynthInput = (x, y, size) => {
   if (x === 0 && y === 0) { // Bottom left corner
     return [[x, y + 1], [x + 1, y]];
@@ -106,7 +85,7 @@ const cornerSynthInput = (x, y, size) => {
   }
 };
 
-// Determine whether synth input is on an edge and return corresponding neighbors
+// Determine whether synth input is on an edge; if so, return the corresponding neighbors
 const edgeSynthInput = (x, y, size) => {
   if (x === 0 && y > 0) { // Left edge
     return [[x, y - 1], [x, y + 1], [x + 1, y]];
