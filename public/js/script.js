@@ -20,12 +20,68 @@ const toggleDrum = (arr, index) => {
     return;
   }
 
-  const mutateArrays = {
-    'kicks': kicks[index] = !kicks[index],
-    'snares': snares[index] = !snares[index],
-    'hiHats': hiHats[index] = !hiHats[index],
-    'rideCymbals': rideCymbals[index] = !rideCymbals[index]
-  };
-
-  return mutateArrays[arr];
+  switch (arr) {
+    case 'kicks':
+      kicks[index] = !kicks[index];
+      break;
+    case 'snares':
+      snares[index] = !snares[index];
+      break;
+    case 'hiHats':
+      hiHats[index] = !hiHats[index];
+      break;
+    case 'rideCymbals':
+      rideCymbals[index] = !rideCymbals[index];
+      break;
+    default:
+      break;
+  }
 };
+
+// Reset a given array
+const clear = (arr) => {
+  if (!arr) {
+    return;
+  }
+
+  switch (arr) {
+    case 'kicks':
+      kicks = createArr();
+      break;
+    case 'snares':
+      snares = createArr();
+      break;
+    case 'hiHats':
+      hiHats = createArr();
+      break;
+    case 'rideCymbals':
+      rideCymbals = createArr();
+      break;
+    default:
+      break;
+  }
+}
+
+// Invert all the values in a given array
+const invert = (arr) => {
+  if (!arr) {
+    return;
+  }
+
+  switch (arr) {
+    case 'kicks':
+      kicks = kicks.map(value => !value);
+      break;
+    case 'snares':
+      snares = snares.map(value => !value);
+      break;
+    case 'hiHats':
+      hiHats = hiHats.map(value => !value);
+      break;
+    case 'rideCymbals':
+      rideCymbals = rideCymbals.map(value => !value);
+      break;
+    default:
+      break;
+  }
+}
