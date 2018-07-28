@@ -16,7 +16,7 @@ let rideCymbals = createArr();
 
 // Toggle the drum at the given index in the given array
 const toggleDrum = (arr, index) => {
-  if (!arr || index < 0 || index > 16) {
+  if (!arr || index < 0 || index > 15) {
     return;
   }
 
@@ -60,7 +60,7 @@ const clear = (arr) => {
     default:
       break;
   }
-}
+};
 
 // Invert all the values in a given array
 const invert = (arr) => {
@@ -84,4 +84,4 @@ const invert = (arr) => {
     default:
       break;
   }
-}
+};
