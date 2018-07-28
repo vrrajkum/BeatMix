@@ -44,7 +44,7 @@ app.use('/presets/:id', (req, res, next) => {
 });
 
 app.listen(4001, () => {
-  console.log('server listening on port 4001');
+  console.log('Server listening on port 4001');
 });
 
 // Hooks to handle saving presets on app exit
